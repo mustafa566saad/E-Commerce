@@ -28,6 +28,7 @@ namespace E_Commerce.EF.Repositries
             _context.Photos.AddRange(photos);
             product.Photos = photos;
             Add(product);
+            _context.Photos.AddRange(photos);
             return product;
         }
 
@@ -70,7 +71,6 @@ namespace E_Commerce.EF.Repositries
                 var ImagePaths = await _image.UploadImageAsync(productDTO.Photos, OldProduct.Name);
                 var photos = ImagePaths.Select(path => new Photos { Url = path, Product = OldProduct }).ToList();
                 await _context.Photos.AddRangeAsync(photos);
-                OldProduct.Photos.AddRange(photos);
             }
             Update(OldProduct);
 
